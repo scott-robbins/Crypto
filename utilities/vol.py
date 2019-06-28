@@ -108,6 +108,21 @@ def main():
         os.system('python program.py run')
         os.system('rm program.py')
         print '===================== FINISHED ======================'
+    if '-e' in sys.argv and len(sys.argv)>=3:
+        key = file_encrypt(sys.argv[2], False)
+        open('key.txt','w').write(key)
+        exit(0)
+    elif len(sys.argv)>=3:
+        prog = sys.argv[1]
+        key = sys.argv[2]
+        clear_prog = file_decrypt(prog, True, key)
+        ln1 = clear_prog.split('\n')[0]
+        rest = clear_prog.split(ln1)[1:]
+
+        os.system('ls; sleep 3')
+        print 'Creating Program from encrypted BLOB'
+        open('program.py', 'w').write(clear_prog)
+        print '===================== FINISHED ======================'
 
 
 if __name__ == '__main__':
